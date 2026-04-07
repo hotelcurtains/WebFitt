@@ -59,7 +59,7 @@ def gen_merged_mean():
 def clear_collected_data():
     check_data_path()
     for filename in os.listdir("data"):
-        if filename.endswith(".wf1") or filename.endswith(".wf2") or filename.endswith(".wf3") or filename.endswith(".wf4"):
+        if filename.endswith(".csv"):
             filedir = os.path.join("data", filename)
             os.rename(filedir, os.path.join("data/trash", filename))
     return "Cleared"
