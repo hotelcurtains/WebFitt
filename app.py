@@ -28,14 +28,16 @@ def save_result():
 
     check_data_path()
 
-    with open(os.path.join("data", filename, "click_{}.csv".format(timestamp)), "w") as f:
+    dir = os.path.join("data", filename)
+
+    with open(os.path.join(dir, "click_{}.csv".format(timestamp)), "w") as f:
         f.write(click_result)
-    with open(os.path.join("data", filename, "task_{}.csv".format(timestamp)), "w") as f:
+    with open(os.path.join(dir, "task_{}.csv".format(timestamp)), "w") as f:
         f.write(task_result)
-    with open(os.path.join("data", filename, "mean_{}.csv".format(timestamp)), "w") as f:
+    with open(os.path.join(dir, "mean_{}.csv".format(timestamp)), "w") as f:
         f.write(mean_result)
     if trace_result:
-        with open(os.path.join("data", timestamp, "trace_{}.csv".format(filename)), "w") as f:
+        with open(os.path.join(dir, "trace_{}.csv".format(filename)), "w") as f:
             f.write(trace_result)
 
     return "OK"
@@ -43,7 +45,7 @@ def save_result():
 @app.route("/utils/mergewf3")
 def gen_merged_mean():
     check_data_path()
-    data_files = [os.path.join("data", f) for f in os.listdir("data") if f.endswith(".wf3")]
+    data_files = [os.path.join("data", f) for f in os.listdir("data") if "mean" in f]
     if len(data_files) <= 1:
         return "No data to merge"
     df_list = []
@@ -53,7 +55,7 @@ def gen_merged_mean():
         df_list.append(temp)
     merged_df = pd.concat(df_list, ignore_index=True)
     merged_mean = merged_df.to_csv(index=False)
-    return Response(merged_mean, mimetype="text/csv", headers={"Content-disposition": "attachment; filename=merged_wf3.csv"})
+    return Response(merged_mean, mimetype="text/csv", headers={"Content-disposition": "attachment; filename=merged_mean.csv"})
 
 @app.route("/utils/cleardata")
 def clear_collected_data():
