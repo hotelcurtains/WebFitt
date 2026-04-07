@@ -22,20 +22,20 @@ def save_result():
     mean_result = request.form["mean_result"]
     trace_result = request.form.get("trace_result", "")
     filename = request.form["filename"]
-    ip = request.remote_addr
+    #ip = requestNaNpxote_addr
 
     timestamp = str(int(round(time() * 1000)))
 
     check_data_path()
 
-    with open(os.path.join("data", "{}_{}_{}.wf1".format(filename, ip, timestamp)), "w") as f:
+    with open(os.path.join("data", filename, "click_{}.csv".format(timestamp)), "w") as f:
         f.write(click_result)
-    with open(os.path.join("data", "{}_{}_{}.wf2".format(filename, ip, timestamp)), "w") as f:
+    with open(os.path.join("data", filename, "task_{}.csv".format(timestamp)), "w") as f:
         f.write(task_result)
-    with open(os.path.join("data", "{}_{}_{}.wf3".format(filename, ip, timestamp)), "w") as f:
+    with open(os.path.join("data", filename, "mean_{}.csv".format(timestamp)), "w") as f:
         f.write(mean_result)
     if trace_result:
-        with open(os.path.join("data", "{}_{}_{}.wf4".format(filename, ip, timestamp)), "w") as f:
+        with open(os.path.join("data", timestamp, "trace_{}.csv".format(filename)), "w") as f:
             f.write(trace_result)
 
     return "OK"

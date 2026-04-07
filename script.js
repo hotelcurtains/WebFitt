@@ -1354,6 +1354,7 @@ function postRequest(url, data, callback) {
 
 // Function to save results as a zip file
 function saveAsZipFile(filename) {
+	/*
 	var zip = new JSZip();
 	zip.file(filename + "_click.csv", generateClickResultString());
 	zip.file(filename + "_task.csv", generateTaskResultString());
@@ -1365,6 +1366,8 @@ function saveAsZipFile(filename) {
 	zip.generateAsync({type:"blob"}).then(function (content) {
 		 saveAs(content, filename + ".zip"); // FileSaver.js Library Function
 	});
+	*/
+	console.log("Didn't send data to user. No need for applause.");
 }
 
 // Checks if all elements in the array are numbers
