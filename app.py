@@ -28,16 +28,14 @@ def save_result():
 
     check_data_path()
 
-    dir = os.path.join("data", filename)
-
-    with open(os.path.join(dir, "click_{}.csv".format(timestamp)), "w") as f:
+    with open(os.path.join("data", "click_{}_{}.csv".format(filename, timestamp)), "w") as f:
         f.write(click_result)
-    with open(os.path.join(dir, "task_{}.csv".format(timestamp)), "w") as f:
+    with open(os.path.join("data", "task_{}_{}.csv".format(filename, timestamp)), "w") as f:
         f.write(task_result)
-    with open(os.path.join(dir, "mean_{}.csv".format(timestamp)), "w") as f:
+    with open(os.path.join("data", "mean_{}_{}.csv".format(filename, timestamp)), "w") as f:
         f.write(mean_result)
     if trace_result:
-        with open(os.path.join(dir, "trace_{}.csv".format(filename)), "w") as f:
+        with open(os.path.join("data", "trace_{}_{}.csv".format(filename, filename)), "w") as f:
             f.write(trace_result)
 
     return "OK"
