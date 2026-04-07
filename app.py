@@ -28,14 +28,15 @@ def save_result():
 
     check_data_path()
 
-    with open(os.path.join("data", "click_{}_{}.csv".format(filename, timestamp)), "w") as f:
+    with open(os.path.join("data", "click", "{}_{}.csv".format(filename, timestamp)), "w") as f:
+        print("wrote", filename)
         f.write(click_result)
-    with open(os.path.join("data", "task_{}_{}.csv".format(filename, timestamp)), "w") as f:
+    with open(os.path.join("data", "task", "{}_{}.csv".format(filename, timestamp)), "w") as f:
         f.write(task_result)
-    with open(os.path.join("data", "mean_{}_{}.csv".format(filename, timestamp)), "w") as f:
+    with open(os.path.join("data", "mean", "{}_{}.csv".format(filename, timestamp)), "w") as f:
         f.write(mean_result)
     if trace_result:
-        with open(os.path.join("data", "trace_{}_{}.csv".format(filename, filename)), "w") as f:
+        with open(os.path.join("data", "trace", "{}_{}.csv".format(filename, timestamp)), "w") as f:
             f.write(trace_result)
 
     return "OK"
@@ -65,10 +66,16 @@ def clear_collected_data():
     return "Cleared"
 
 def check_data_path():
-    if not os.path.exists("data"):
-        os.makedirs("data")
-    if not os.path.exists("data/trash"):
-        os.makedirs("data/trash")
+    try:
+        os.makedirs("data", exist_ok=True)
+        for dir in ["trash", "click", "task", "mean", "trace"]:
+            os.makedirs(os.path.join("data", dir), exist_ok=True)
+    except OSError as e:
+        if e.errno == 116:
+            os.makedirs("data", exist_ok=True)
+            os.makedirs(os.path.join("data", "trash"), exist_ok=True)
+        else:
+            raise
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
