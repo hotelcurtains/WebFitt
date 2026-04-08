@@ -141,7 +141,7 @@ $(document).ready(function() {
     });
 
     $("#github_icon").click(function() {
-        window.open("https://github.com/adildsw/WebFitt");
+        window.open("https://github.com/hotelcurtains/WebFitt");
     });
 
     // WebSocket icon click handler - show popup
